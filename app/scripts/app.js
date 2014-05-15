@@ -9,9 +9,13 @@ angular
   ])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/myroute.html',
-        controller: 'MyrouteCtrl'
+//      .when('/kk', {
+//        templateUrl: 'views/myroute.html',
+//        controller: 'MyrouteCtrl'
+//      })
+      .when('/',{
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl'
       })
       .otherwise({
         redirectTo: '/'

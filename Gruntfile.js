@@ -9,6 +9,7 @@
 
 module.exports = function (grunt) {
 
+    grunt.loadNpmTasks('grunt-haml');
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
@@ -27,6 +28,10 @@ module.exports = function (grunt) {
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
+        haml: {
+            files: ['<%= yeoman.app %>/views/{,*/}*.haml'],
+            tasks: ['haml:dist']
+        },
       bower: {
         files: ['bower.json'],
         tasks: ['bowerInstall']
@@ -54,13 +59,28 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= yeoman.app %>/{,*/}*.html',
+          '<%= yeoman.app %>/{,*/}*.{html, haml}',
+          '{.tmp,<%= yeoman.app %>}/views/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
+          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
-
+      haml: {
+          options: {
+              language: "ruby"
+          },
+          dist: {
+              files: [{
+                  expand: true,
+                  cwd: '<%= yeoman.app %>',
+                  src: '{,*/}*.haml',
+                  dest: '.tmp',
+                  ext: '.html'
+              }]
+          }
+      },
     // The actual grunt server settings
     connect: {
       options: {
